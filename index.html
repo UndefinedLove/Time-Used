@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Motivation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        #input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #dateinput {
+            margin-bottom: 10px;
+            padding: 8px;
+        }
+
+        #done-btn {
+            padding: 10px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #timer {
+            display: none;
+            margin: 12px;
+            font-size: 1em;
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: #fff;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="input-container">
+        <label for="dateinput">Input date:</label>
+        <input id="dateinput" type="date" placeholder="enter your date">
+        <button id="done-btn" onclick="startTimer()">DONE</button>
+    </div>
+
+    <div id="timer"></div>
+
+    <script>
+        function startTimer() {
+            const enteredDate = document.getElementById('dateinput').value;
+
+            if (enteredDate !== "") {
+                document.getElementById('input-container').style.display = 'none';
+                document.getElementById('timer').style.display = 'block';
+                updateTimer();
+            }
+        }
+
+        function updateTimer() {
+            const dob = new Date(document.getElementById('dateinput').value);
+            const today = new Date();
+
+            const ageMilliseconds = today - dob;
+            const ageSeconds = ageMilliseconds / 1000;
+            const ageMinutes = ageSeconds / 60;
+            const ageHours = ageMinutes / 60;
+            const ageDays = ageHours / 24;
+            const ageMonths = ageDays / (365.25 / 12);
+            const ageYears = ageDays / 365.25;
+
+            const formattedAge = `${Math.floor(ageYears)} years - ${Math.floor(ageMonths % 12)} months - ${Math.floor(ageDays % 30)} days - ${Math.floor(ageHours % 24)} hours - ${Math.floor(ageMinutes % 60)} minutes - ${Math.floor(ageSeconds % 60)} seconds - ${Math.floor(ageMilliseconds % 1000)} milliseconds`;
+            document.getElementById('timer').innerHTML = `<strong>You've already spent:</strong><br>${formattedAge}`;
+
+            setTimeout(updateTimer, 1000);
+        }
+
+        updateTimer();
+    </script>
+</body>
+
+</html>
