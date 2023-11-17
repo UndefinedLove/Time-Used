@@ -103,7 +103,7 @@
             const formattedAge = `${Math.floor(ageYears)} years - ${Math.floor(ageMonths % 12)} months - ${Math.floor(ageDays % 30)} days - ${Math.floor(ageHours % 24)} hours - ${Math.floor(ageMinutes % 60)} minutes - ${Math.floor(ageSeconds % 60)} seconds - ${Math.floor(ageMilliseconds % 1000)} milliseconds`;
             document.getElementById('timer').innerHTML = `<strong>You've already spent:</strong><br>${formattedAge}`;
 
-            setTimeout(updateTimer, 1000);
+            setTimeout(updateTimer, 10);
         }
 
         updateTimer();
