@@ -55,6 +55,8 @@
             font-size: 0.8em; 
             text-align: center;
             color: #fff;
+            opacity: 1;
+            transition: opacity 0.5s ease;
         }
 
         hr {
@@ -101,7 +103,7 @@
                 document.getElementById('timer').style.display = 'block';
                 displayRandomQuote();
                 updateTimer();
-                setInterval(displayRandomQuote, 60000);
+                setInterval(displayRandomQuote, 10000);
             }
         }
 
@@ -132,12 +134,19 @@
             const formattedAge = `${Math.floor(ageYears)} years - ${Math.floor(ageMonths % 12)} months - ${Math.floor(ageDays % 30)} days - ${Math.floor(ageHours % 24)} hours - ${Math.floor(ageMinutes % 60)} minutes - ${Math.floor(ageSeconds % 60)} seconds <br/> <strong>And you're still watching this clock, make a promise, to yourself.</strong>`;
             document.getElementById('timer').innerHTML = `<strong>You've already spent:</strong><br>${formattedAge}`;
 
-            setTimeout(updateTimer, 1000);
+            setTimeout(updateTimer, 60000);
         }
 
         async function displayRandomQuote() {
+            const quotesElement = document.getElementById('quotes');
+            quotesElement.style.opacity = 0;
+            
             const randomQuote = await getRandomQuote();
-            document.getElementById('quotes').innerHTML = `<br/><em>${randomQuote}</em>`;
+            quotesElement.innerHTML = `<br/><em>${randomQuote}</em>`;
+            
+            void quotesElement.offsetWidth;
+
+            quotesElement.style.opacity = 1;
         }
 
         displayRandomQuote();
